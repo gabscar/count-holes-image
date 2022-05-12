@@ -9,3 +9,7 @@ fundo (aparecem como brancos na Figura 1) terão valor 0 e os pixels que corresp
 pretos da Figura 1) terão valor 1. Essa é uma forma de encarar a imagem como uma máscara, que informa 1
 caso um pixel pertença ao objeto de interesse (o que seria equivalente ao booleano true) ou 0 caso contrário
 (aqui, seria equivalente ao false)
+
+
+## Execução:
+- python arquivo.py “nome da imagem.pbm”
