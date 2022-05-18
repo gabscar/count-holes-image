@@ -59,30 +59,6 @@ def morfoOperation(image, kernel, padding=1, operation=None):
     return "Adicione a Operacao"
 
 
-def convol(image, kernel, padding=1):
-    # Reflexão do kernel
-    kernel = np.flipud(np.fliplr(kernel))
-
-    # Montando o array que vai receber a imagem após a convolução
-    xOutput = int(((image.shape[0] - kernel.shape[0] + 2 * padding) ) + 1)
-    yOutput = int(((image.shape[1] - kernel.shape[1] + 2 * padding) ) + 1)
-    output = np.zeros((xOutput, yOutput))
-
-    if padding != 0:
-        imagePadded = np.zeros((image.shape[0] + padding*2, image.shape[1] + padding*2))
-        imagePadded[int(padding):int(-1 * padding), int(padding):int(-1 * padding)] = image
-    else:
-        imagePadded = image
-
-
-    for y in range(image.shape[1]):
-        for x in range(image.shape[0]):
-            output[x, y] = (kernel * imagePadded[x: x + kernel.shape[0], y: y + kernel.shape[1]]).sum()
-
-    return output
-
-
-
 def getArr(name):
     with open(name, "r") as f:
         lines = f.readlines()
@@ -156,13 +132,7 @@ print('Num de Objetos:',len(np.unique(matrizObjetos))-1) # O número de objetos 
 count = 0
 while(1):
     
-    inverse_arr = copy_arr.copy()
-    for i in range(copy_arr.shape[0]):
-        for j in range(copy_arr.shape[1]):
-            if(inverse_arr[i][j] == 0):
-                inverse_arr[i][j] = 1
-            else:
-                inverse_arr[i][j] = 0
+    inverse_arr = inverse(copy_arr)
     
     numeroFuros = len(np.unique(countObjects(inverse_arr)))-1# contagem da quantidade de furos que conta o número necessário de dilatação para preencher todos os furos
     if(numeroFuros > 1):
